@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pro.pro.mapper.ProductParamMapper">
+    <!--customize mapping rule-->
+    <resultMap id="ProductParamEntityMap" type="com.pro.pro.Entity.ProductParam">
+        <id column="param_id" property="param_id"></id>
+        <result column="product_id" property="productId"></result>
+    </resultMap>
+    <select id="findByProductId" resultMap="ProductParamEntityMap">
+        SELECT * FROM product_params WHERE product_id=#{productId}
+    </select>
+    <select id="findBySizeColorAndProductId" resultMap="ProductParamEntityMap">
+        SELECT price FROM product_params WHERE  product_id=#{productId} And size = #{size} And color=#{color}
+    </select>
+<!--    <update id="updateNoneDefault" >-->
+<!--        UPDATE user_addr-->
+<!--        SET is_default=0-->
+<!--        WHERE user_id=#{userId}-->
+<!--    </update>-->
+<!--    <update id="updateDefaultByUserId" >-->
+<!--        UPDATE user_addr-->
+<!--        SET is_default=1,update_user=#{updateUser},update_time=#{updateTime}-->
+<!--        WHERE add_id=#{addId}-->
+<!--    </update>-->
+<!--    <delete id="deleteByAddId">-->
+<!--        DELETE FROM user_addr WHERE add_id=#{add_id}-->
+<!--    </delete>-->
+<!--    <update id="updateByAddId" >-->
+<!--        UPDATE user_addr-->
+<!--        SET user_id=#{userId},receiver_name=#{receiverName},receiver_phone=#{receiverPhone},-->
+<!--            province=#{province},city=#{city},area=#{area},address=#{address},-->
+<!--            post_code=#{postCode},is_default=#{isDefault},update_user=#{updateUser},update_time=#{updateTime}-->
+<!--        WHERE add_id=#{addId}-->
+<!--    </update>-->
+</mapper>

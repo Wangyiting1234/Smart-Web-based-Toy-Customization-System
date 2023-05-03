@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pro.pro.mapper.CartMapper">
+    <!--customize mapping rule-->
+    <resultMap id="CartEntityMap" type="com.pro.pro.Entity.Cart">
+        <id column="cart_id" property="cart_id"></id>
+        <result column="product_id" property="productId"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="product_num" property="productNum"></result>
+        <result column="product_name" property="productName"></result>
+        <result column="product_price" property="productPrice"></result>
+        <result column="product_size" property="productSize"></result>
+        <result column="product_color" property="productColor"></result>
+        <result column="create_user" property="createUser"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_user" property="updateUser"></result>
+        <result column="update_time" property="updateTime"></result>
+    </resultMap>
+   <insert id="insert" useGeneratedKeys="true" keyProperty="cart_id">
+       INSERT INTO shopping_cart(
+                             USER_ID,product_id,product_price,product_num,product_name,product_size,product_color,
+                         CREATE_TIME, UPDATE_TIME, CREATE_USER, UPDATE_USER
+       ) VALUES (
+                 #{userId},#{productId},#{productPrice},#{productNum},#{productName},#{productSize},#{productColor},#{createTime},#{updateTime},#{createUser},#{updateUser}
+                       )
+   </insert>
+<!--    <select id="countByUserId" resultType="java.lang.Integer">-->
+<!--        SELECT COUNT(*) FROM user_addr WHERE user_id=#{userId}-->
+<!--    </select>-->
+    <select id="findByUIdAndPid" resultMap="CartEntityMap">
+        SELECT * FROM shopping_cart WHERE user_id=#{userId} AND product_id=#{productId}
+    </select>
+    <select id="findByUid" resultMap="CartEntityMap">
+        SELECT * FROM shopping_cart WHERE user_id=#{userId}
+    </select>
+    <update id="updateNumById" >
+        UPDATE shopping_cart
+        SET product_num=#{productNum},update_user=#{updateUser},update_time=#{updateTime}
+        WHERE cart_id=#{cart_id}
+    </update>
+<!--    <select id="findByCids" resultType="com.pro.pro.vo.CartVO">-->
+<!--        SELECT * FROM shopping_cart WHERE cart_id=#{cart_id} IN-->
+<!--    </select>-->
+    <select id="findUid" resultType="com.pro.pro.vo.CartVO">
+        SELECT cart_id,user_id,shopping_cart.product_id,shopping_cart.product_price,shopping_cart.product_num,
+               shopping_cart.product_name
+            FROM shopping_cart LEFT JOIN product ON shopping_cart.product_id=product.product_id
+            WHERE user_id=#{userId} ORDER BY shopping_cart.create_time DESC
+    </select>
+<!--    <update id="updateDefaultByUserId" >-->
+<!--        UPDATE user_addr-->
+<!--        SET is_default=1,update_user=#{updateUser},update_time=#{updateTime}-->
+<!--        WHERE add_id=#{addId}-->
+<!--    </update>-->
+<!--    <delete id="deleteByAddId">-->
+<!--        DELETE FROM user_addr WHERE add_id=#{add_id}-->
+<!--    </delete>-->
+<!--    <update id="updateByAddId" >-->
+<!--        UPDATE user_addr-->
+<!--        SET user_id=#{userId},receiver_name=#{receiverName},receiver_phone=#{receiverPhone},-->
+<!--            province=#{province},city=#{city},area=#{area},address=#{address},-->
+<!--            post_code=#{postCode},is_default=#{isDefault},update_user=#{updateUser},update_time=#{updateTime}-->
+<!--        WHERE add_id=#{addId}-->
+<!--    </update>-->
+</mapper>

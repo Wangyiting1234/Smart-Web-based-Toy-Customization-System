@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pro.pro.mapper.UserMapper">
+    <!--customize mapping rule-->
+    <resultMap id="UserEntityMap" type="com.pro.pro.Entity.User">
+        <id column="user_id" property="user_id"></id>
+        <result column="is_delete" property="isDelete"></result>
+        <result column="user_name" property="userName"></result>
+        <result column="user_pwd" property="userPwd"></result>
+        <result column="user_gender" property="userGender"></result>
+        <result column="user_salt" property="userSalt"></result>
+        <result column="user_tel" property="userTel"></result>
+        <result column="create_user" property="createUser"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_user" property="updateUser"></result>
+        <result column="update_time" property="updateTime"></result>
+    </resultMap>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="user_id">
+        INSERT INTO users (
+                           user_name, user_pwd, user_gender, user_tel, user_salt, is_delete, create_user,
+                           create_time, update_user, update_time
+        ) VALUES (
+                  #{userName}, #{userPwd}, #{userGender}, #{userTel}, #{userSalt},
+                #{isDelete}, #{createUser}, #{createTime}, #{updateUser}, #{updateTime}
+                )
+    </insert>
+    <select id="findByUserTel" resultMap="UserEntityMap">
+        SELECT * FROM USERS WHERE user_tel = #{userTel}
+    </select>
+    <update id="updatePasswordByUid">
+        UPDATE USERS SET
+                         user_pwd=#{userPwd},
+                         update_time=#{UpdateTime},
+                         update_user=#{UpdateUser}
+        WHERE user_id=${user_id}
+    </update>
+    <select id="findByUserId"  resultMap="UserEntityMap">
+        SELECT * FROM USERS WHERE user_id = #{user_id}
+    </select>
+    <update id="updateUserInfo">
+        UPDATE USERS SET
+                        <if test="userName!=null">user_name=#{userName},</if>
+                        <if test="userGender!=null">user_gender=#{userGender},</if>
+                         update_time=#{updateTime},
+                         update_user=#{updateUser}
+        WHERE user_id=${user_id}
+    </update>
+</mapper>

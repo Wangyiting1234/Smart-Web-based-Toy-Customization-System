@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pro.pro.mapper.ProductMapper">
+    <!--customize mapping rule-->
+    <resultMap id="ProductEntityMap" type="com.pro.pro.Entity.Product">
+        <id column="product_id" property="product_id"></id>
+        <result column="cate_id" property="cateId"></result>
+        <result column="root_cate_id" property="rootCateId"></result>
+        <result column="product_name" property="productName"></result>
+        <result column="stock_num" property="stockNum"></result>
+        <result column="create_user" property="createUser"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_user" property="updateUser"></result>
+        <result column="update_time" property="updateTime"></result>
+    </resultMap>
+    <resultMap id="ProductImgEntityMap" type="com.pro.pro.Entity.ProductImg">
+        <id column="id" property="id"></id>
+        <result column="product_id" property="productId"></result>
+    </resultMap>
+<!--   <insert id="insert" useGeneratedKeys="true" keyProperty="add_id">-->
+<!--       INSERT INTO user_addr(-->
+<!--                             USER_ID, RECEIVER_NAME, RECEIVER_PHONE, PROVINCE, CITY, AREA, ADDRESS,-->
+<!--                             POST_CODE,IS_DEFAULT, CREATE_TIME, UPDATE_TIME, CREATE_USER, UPDATE_USER-->
+<!--       ) VALUES (-->
+<!--                 #{userId},#{receiverName},#{receiverPhone},#{province},#{city},#{area},#{address},-->
+<!--                 #{postCode},#{isDefault},#{createTime},#{updateTime},#{createUser},#{updateUser}-->
+<!--                       )-->
+<!--   </insert>-->
+    <select id="findById" resultMap="ProductEntityMap">
+        SELECT * FROM product WHERE product_id=#{product_id}
+    </select>
+    <select id="findHotBySales" resultMap="ProductEntityMap">
+        SELECT * FROM product WHERE status=1 ORDER BY sales DESC LIMIT 0,20
+    </select>
+    <select id="findByTime" resultMap="ProductEntityMap">
+        SELECT * FROM product WHERE status=1 ORDER BY update_time DESC LIMIT 0,4
+    </select>
+    <select id="findByProductId" resultMap="ProductImgEntityMap">
+        SELECT path FROM product_img WHERE product_id=#{productId}
+    </select>
+
+<!--    <update id="updateNoneDefault" >-->
+<!--        UPDATE user_addr-->
+<!--        SET is_default=0-->
+<!--        WHERE user_id=#{userId}-->
+<!--    </update>-->
+<!--    <update id="updateDefaultByUserId" >-->
+<!--        UPDATE user_addr-->
+<!--        SET is_default=1,update_user=#{updateUser},update_time=#{updateTime}-->
+<!--        WHERE add_id=#{addId}-->
+<!--    </update>-->
+<!--    <delete id="deleteByAddId">-->
+<!--        DELETE FROM user_addr WHERE add_id=#{add_id}-->
+<!--    </delete>-->
+<!--    <update id="updateByAddId" >-->
+<!--        UPDATE user_addr-->
+<!--        SET user_id=#{userId},receiver_name=#{receiverName},receiver_phone=#{receiverPhone},-->
+<!--            province=#{province},city=#{city},area=#{area},address=#{address},-->
+<!--            post_code=#{postCode},is_default=#{isDefault},update_user=#{updateUser},update_time=#{updateTime}-->
+<!--        WHERE add_id=#{addId}-->
+<!--    </update>-->
+</mapper>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pro.pro.mapper.OrderMapper">
+    <!--customize mapping rule-->
+    <resultMap id="OrderEntityMap" type="com.pro.pro.Entity.Order">
+        <id column="order_id" property="order_id"></id>
+        <result column="user_id" property="userId"></result>
+        <result column="product_name" property="productName"></result>
+        <result column="receiver_name" property="receiverName"></result>
+        <result column="receiver_phone" property="receiverPhone"></result>
+        <result column="total_amount" property="totalAmount"></result>
+        <result column="pay_time" property="payTime"></result>
+        <result column="order_time" property="orderTime"></result>
+        <result column="create_user" property="createUser"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_user" property="updateUser"></result>
+        <result column="update_time" property="updateTime"></result>
+    </resultMap>
+   <insert id="insertOrder" useGeneratedKeys="true" keyProperty="order_id">
+       INSERT INTO orders(
+                             USER_ID,receiver_name,receiver_phone,
+                          province,city,area,address,total_amount,status,
+                         order_time,pay_time,CREATE_TIME, UPDATE_TIME, CREATE_USER, UPDATE_USER
+       ) VALUES (
+                 #{userId},#{receiverName},#{receiverPhone},#{province},
+                 #{city},#{area},#{address},#{totalAmount},
+                 #{status},#{orderTime},#{payTime},
+                 #{createTime},#{updateTime},#{createUser},#{updateUser}
+                       )
+   </insert>
+    <insert id="insertItem" useGeneratedKeys="true" keyProperty="item_id">
+        INSERT INTO order_item(
+                   ORDER_ID, PRODUCT_ID, PRODUCT_NAME, PRODUCT_SIZE, PRODUCT_COLOR, PRODUCT_NUM, CREATE_TIME, UPDATE_TIME, CREATE_USER, UPDATE_USER
+        )values (
+                 #{orderId},#{productId},#{productName},#{productSize},#{productColor},
+                 #{productNum}, #{createTime},#{updateTime},#{createUser},#{updateUser}
+                        )
+    </insert>
+<!--    <select id="countByUserId" resultType="java.lang.Integer">-->
+<!--        SELECT COUNT(*) FROM user_addr WHERE user_id=#{userId}-->
+<!--    </select>-->
+<!--    <select id="findByUIdAndPid" resultMap="OrderEntityMap">-->
+<!--        SELECT * FROM shopping_Order WHERE user_id=#{userId} AND product_id=#{productId}-->
+<!--    </select>-->
+<!--    <select id="findByUid" resultMap="OrderEntityMap">-->
+<!--        SELECT * FROM shopping_Order WHERE user_id=#{userId}-->
+<!--    </select>-->
+<!--    <update id="updateNumById" >-->
+<!--        UPDATE shopping_Order-->
+<!--        SET product_num=#{productNum},update_user=#{updateUser},update_time=#{updateTime}-->
+<!--        WHERE Order_id=#{Order_id}-->
+<!--    </update>-->
+<!--    <update id="updateDefaultByUserId" >-->
+<!--        UPDATE user_addr-->
+<!--        SET is_default=1,update_user=#{updateUser},update_time=#{updateTime}-->
+<!--        WHERE add_id=#{addId}-->
+<!--    </update>-->
+<!--    <delete id="deleteByAddId">-->
+<!--        DELETE FROM user_addr WHERE add_id=#{add_id}-->
+<!--    </delete>-->
+<!--    <update id="updateByAddId" >-->
+<!--        UPDATE user_addr-->
+<!--        SET user_id=#{userId},receiver_name=#{receiverName},receiver_phone=#{receiverPhone},-->
+<!--            province=#{province},city=#{city},area=#{area},address=#{address},-->
+<!--            post_code=#{postCode},is_default=#{isDefault},update_user=#{updateUser},update_time=#{updateTime}-->
+<!--        WHERE add_id=#{addId}-->
+<!--    </update>-->
+</mapper>
