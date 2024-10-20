@@ -1,0 +1,14 @@
+A rising number of toy companies are leveraging the explosive growth of e-commerce to
+develop online platforms promoting brand development, offering branded goods and
+features. As a result, a web application enabling customizations of branded toys has been
+developed to cater to consumers' specific and general needs. This website facilitates
+basic online sales services for toy brands, such as registration, log in, browsing and
+purchasing toys, and provides introductions to the brand. In addition, customers are
+granted access to a personalized toy service, where they can interactively customize the
+baseline model (teddy bears) using fashion accessories, then purchase the decorated
+product. The smart toys customization system has three primary development stages,
+comprising the construction of the database and back-end functionalities employing SQL
+management server tools and Springboot, programming of front-end functionalities using
+Vue, and the creation and rendering of toy models utilizing 3dsmax and Three.js. Overall,
+the project implementation was successful, with thorough testing and evaluation
+conducted to determine the web application's useful functionalities..
